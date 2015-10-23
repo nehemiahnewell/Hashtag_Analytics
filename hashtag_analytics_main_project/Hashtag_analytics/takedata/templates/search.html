@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Twitter hashtag analytics || Nehemiah Evan Newell</title>
+        <link rel="stylesheet" href='{% static "css/style.css" %}'/>
+    </head>
+    <body>
+        <div class="col1">
+            <ul>
+                <li>Table Of Contents</li>
+                <li><a href="../../">Hashtag Search</a></li>
+                <li><a href="../records/">Archived Searches</a></li>
+            </ul>
+        </div>
+        <div class="col2">
+            <h1>On {{ record.date_searched }}, searching for hashtag {{ record.hashtag_searched }}, with {{ record.Tweets }} tweets found.</h1>
+        </div>
+        <script type="text/javascript" src='{% static "d3.min.js" %}'></script>
+        <script>
+            var tweetstring = "Size by number of tweets";
+            var userstring = "Size by number of users";
+            var tweetData = { {% for tag in search %} {% if tag.Percentage >= 3 %}  "{{ tag.hashtag_found }}":[
+                {{ tag.Count }},{{ tag.Percentage }}], {% endif %} {% endfor %} };
+            var userData = { {% for tag in search %} {% if tag.Percentage_Posters >= 3 %} "{{ tag.hashtag_found }}":[
+                {{ tag.Posters }}, {{ tag.Percentage_Posters }}], {% endif %} {% endfor %} };
+            create_graph(tweetstring, tweetData);
+            create_graph(userstring, userData);
+            function create_graph(str, dat) {
+                // D3 Bubble Chart
+
+
+                var diameter = 1000,
+                format = d3.format(",d"),
+                color = d3.scale.category20c();
+
+                var bubble = d3.layout.pack()
+                    .sort(null)
+                    .size([diameter, diameter])
+                    .padding(1.5);
+
+                d3.select(".col2").append("h2").text(str).attr('style','text-align:center');
+
+                var svg = d3.select(".col2")
+                        .append("svg")
+                        .attr("width", diameter)
+                        .attr("height", diameter)
+                        .attr("class", "bubble");
+
+                (function() {
+                  var node = svg.selectAll(".node")
+                      .data(bubble.nodes(processData(dat))
+                      .filter(function(d) { return !d.children; }))
+                    .enter().append("g")
+                      .attr("class", "node")
+                      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+                  node.append("title")
+                      .text(function(d) { return "#" + d.className + " Used: " + format(d.value) + " at " + d.percent + "%";
+                          });
+
+                  node.append("circle")
+                      .attr("r", function(d) { return d.r; })
+                      .style("fill", function(d) { return color(d.packageName); });
+
+                  node.append("text")
+                      .attr("dy", ".3em")
+                      .style("text-anchor", "middle")
+                      .text(function(d) { return ("#" + d.className).substring(0, d.r / 3); });
+                })();
+
+
+              function processData(search)
+              {
+
+                  var results = search;
+                  var newDataSet = [];
+
+                  for(var tweet in results) {newDataSet.push({packageName: tweet, className: tweet.toLowerCase(),
+                      value: results[tweet][0], percent: results[tweet][1]});
+                  }
+
+                  return {children: newDataSet};
+              }
+
+            }
+        </script>
+    </body>
+</html>

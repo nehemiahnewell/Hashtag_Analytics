@@ -78,12 +78,6 @@ WSGI_APPLICATION = 'Hashtag_analytics.wsgi.application'
 
 DATABASES = {
    'default': {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'HashtagDB',
-       'USER': 'Nehemiah', #The username you set
-       'PASSWORD': '1111', #The password you set
-       'HOST': '',
-       'PORT': '',
    }
 }
 

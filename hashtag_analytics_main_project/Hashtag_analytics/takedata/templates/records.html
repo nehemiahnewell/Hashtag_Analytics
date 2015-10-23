@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Twitter hashtag analytics || Nehemiah Evan Newell</title>
+        <link rel="stylesheet" href='{% static "css/style.css" %}'/>
+    </head>
+    <body>
+        <div class="col1">
+            <ul>
+                <li><a href="../../">Hashtag Search</a></li>
+                <li><a href="#">Archived Searches</a></li>
+            </ul>
+        </div>
+        <div class="col2">
+        <h1>Archived searches</h1>
+        {% if hashsearch_list %}
+            <ul class="fancy_links">
+                {% for record in hashsearch_list %}
+                    <li class="fancy_links">
+                        <a href="{% url 'hash:search' record.id %}" class="fancy_links">{{ record.id }}: Search On {{ record.date_searched }}<br />
+                        Search: {{ record.hashtag_searched }}<br />
+                        {{ record.Tweets }} tweets found.</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Records not available,or recently cleaned..</p>
+        {% endif %}
+        </div>
+    </body>
+</html>

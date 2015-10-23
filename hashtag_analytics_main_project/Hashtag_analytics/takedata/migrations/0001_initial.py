@@ -13,14 +13,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='hashtags',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
                 ('hashtag', models.CharField(max_length=140)),
             ],
         ),
         migrations.CreateModel(
             name='postData',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
             ],
         ),
         migrations.AddField(

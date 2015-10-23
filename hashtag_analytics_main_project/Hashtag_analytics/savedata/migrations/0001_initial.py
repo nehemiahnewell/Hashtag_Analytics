@@ -13,18 +13,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='hashtags',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('hashtag_found', models.CharField(max_length=140)),
-                ('Use_By_Percentage', models.DecimalField(decimal_places=2, max_digits=4)),
-                ('Use_By_Percentage_Posters', models.DecimalField(decimal_places=2, max_digits=4)),
+                ('Count', models.IntegerField()),
+                ('Percentage', models.DecimalField(max_digits=4, decimal_places=2)),
+                ('Posters', models.IntegerField()),
+                ('Percentage_Posters', models.DecimalField(max_digits=4, decimal_places=2)),
             ],
         ),
         migrations.CreateModel(
             name='searchData',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('hashtag_searched', models.CharField(max_length=140)),
                 ('date_searched', models.DateTimeField(verbose_name='date published')),
+                ('Tweets', models.IntegerField()),
             ],
         ),
         migrations.AddField(

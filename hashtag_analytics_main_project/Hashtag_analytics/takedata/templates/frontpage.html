@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Twitter hashtag analytics || Nehemiah Evan Newell</title>
+        <link rel="stylesheet" href='{% static "css/style.css" %}'/>
+    </head>
+    <body>
+        <div class="col1">
+            <ul>
+                <li><a href="#">Hashtag Search</a></li>
+                <li><a href="hashtag_search/records/">Archived Searches</a></li>
+            </ul>
+        </div>
+        <div class="col2">
+            <h1>Twitter hashtag analytics</h1>
+            <p>Social media sites like Twitter and Tumblr are becoming increasingly common, to the point where tracking social
+                media posts has become an important tool for following everything from celebrities to companies and political
+                parties. One of the most important tools for people to track twitter discussions is the hashtag, to the point
+                many groups outside twitter have started adopting them or an equivalent tool.</p>
+            <p>If every tag is thought of as one discussion, then an interesting topic is seeing what discussions overlap, what
+                topics are talked about together, or naturally lead into one another. This site is a tool for following and
+                studying these overlaps.</p>
+            <p>Twitter limits the number of tweet you may download by account, to a maximum of 1800 tweets found ever 15
+                minutes. Searches use up tweets in intervals of 100. So, for instance, even if you only find 179 tweets, you've
+                used up 200 tweets of your fifteen minute bandwidth.</p>
+            <!--<p>Make a new search</p>-->
+            <!--<p><a href="../search_string/">Look at archived searches</a></p>-->
+            <form id="submitReply" method="post" action="../search_string/">{% csrf_token %}
+                <label for="search">Please enter the tag you want to search. You do not need to include a # sign.<br />
+                It may take several miniute for your query to process.</label>
+                <input id="search" type="text" name="search" placeholder="Emmys" required/>
+                <input type="submit" name="submit" class="submit" value="Submit"/>
+            </form>
+        </div>
+    </body>
+</html>
