@@ -1,5 +1,7 @@
 To install and run this app, several steps need to be taken.
 
+This app requires the TwitterSearch library, which can be found at https://github.com/ckoepp/TwitterSearch
+
 1. Setup an address for twitter data to.
 
 If this is going to be run on a server that is exposed to the web, this step may be skipped.
